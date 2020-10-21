@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.sunyard</groupId>
+        <artifactId>cicd-demo</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>com.sunyard</groupId>
+    <artifactId>apollo-client-demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>apollo-client-demo</name>
+    <description>Demo project for Apollo Client</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>spring-boot-logger</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.encoding>UTF-8</project.encoding>
+    </properties>
+
+    <dependencies>
+        <!-- apollo -->
+        <dependency>
+            <groupId>com.ctrip.framework.apollo</groupId>
+            <artifactId>apollo-client</artifactId>
+            <version>${apollo.client.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

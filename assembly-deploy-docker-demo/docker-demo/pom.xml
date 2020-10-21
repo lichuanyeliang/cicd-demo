@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.sunyard</groupId>
+        <artifactId>assembly-deploy-docker-demo</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+<!--    <packaging>jar</packaging>-->
+
+    <artifactId>docker-demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>docker-demo</name>
+    <description>docker-demo project for platform</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+            <!--  docker打包    -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${dockerfile-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <!--如果package时不想用docker打包,就注释掉这个goal-->
+                            <goal>build</goal>
+<!--                            <goal>push</goal>-->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--docker image的名称，如：sunyard/docker-demo-->
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <!--指定dockerfile路径-->
+<!--                    <contextDirectory>${project.basedir}/src/assembly/docker</contextDirectory>-->
+                    <dockerfile>${project.basedir}/src/assembly/docker/Dockerfile</dockerfile>
+                    <buildArgs>
+                        <SERVICE_NAME_ARG>${project.artifactId}</SERVICE_NAME_ARG>
+                        <SERVICE_FULL_NAME_ARG>${project.build.finalName}</SERVICE_FULL_NAME_ARG>
+                    </buildArgs>
+                    <!--避免产生*-docker-info.jar-->
+                    <skipDockerInfo>true</skipDockerInfo>
+                    <!--防止每次打包的时候，都去pull依赖的镜像，false的话，会从本地加载-->
+                    <pullNewerImage>false</pullNewerImage>
+                    <!--压缩镜像-->
+<!--                    <squash>true</squash>-->
+                    <!--不加这个debug会报错，不注册google容器-->
+                    <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
+                </configuration>
+
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

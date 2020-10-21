@@ -1,0 +1,8 @@
+version: "3"
+services:
+  basicService:
+    build: ./../basicImage/
+    image: openjdk8:sunyard
+  demoService:
+    container_name:
+    build: ./../basicImage/

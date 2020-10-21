@@ -1,0 +1,15 @@
+app:
+  id: sunsip
+# set apollo meta server address, adjust to actual address if necessary
+apollo:
+  meta: http://121.36.242.68:8080
+  # 配置的本地缓存目录，这行也可不配置，不配Apollo有默认值target/classes/config-cache
+  #cacheDir: ./spring-boot-logger/config-cache
+  bootstrap:
+    enabled: true
+    namespaces: dev-1
+    eagerLoad:
+      enabled: false
+  #设置密钥
+  accesskey:
+    secret: 3e604675cfbd4aefb994513597e72f7c
