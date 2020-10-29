@@ -7,5 +7,11 @@ pipeline {
       }
     }
 
+    stage('ssh-remote') {
+      steps {
+        sshPublisher(alwaysPublishFromMaster: true, failOnError: true, continueOnError: true)
+      }
+    }
+
   }
 }
