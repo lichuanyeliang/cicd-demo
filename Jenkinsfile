@@ -7,11 +7,5 @@ pipeline {
       }
     }
 
-    stage('ssh-remote') {
-      steps {
-        sleep 2
-      }
-    }
-
   }
 }
